@@ -1,0 +1,225 @@
+/*****************************************************************
+# COPYRIGHT (C) 2019-20 SYNOPSYS INC.
+# This software and the associated documentation are confidential and
+# proprietary to Synopsys, Inc. Your use or disclosure of this software
+# is subject to the terms and conditions of a written license agreement
+# between you, or your company, and Synopsys, Inc. In the event of
+# publications, the following notice is applicable:
+# ALL RIGHTS RESERVED
+# The entire notice above must be reproduced on all authorized copies.
+#--------------------------------------------------------------------------------------------------
+-- ** Purpose            : extend struct type(struct/buffer/stream/state/resource)
+-- ** LRM                : Feb 2019 1.0a
+-- ** Kind               : Simulation
+-- ** Status             : SOLUTION_IS_GENERATED
+-- ** Current Behaviour  : It is working fine. 
+-- ** Date               : 08-13-2020
+**************************************************************** */
+
+enum month_e {JAN, FEB, MAR, APR, MAY};
+
+component sub_comp {
+
+	struct str_sub {
+		rand bit[3:0] str_bit;
+		rand int str_int;
+		rand bool str_bool;
+		string str_string;
+	}
+
+	buffer buff_sub {
+		int buf_int;
+		bit[3:0] buf_bit1, buf_bit2;
+		bool buf_bool;
+		string buf_string;
+		month_e buf_enum;
+		str_sub buf_str;
+	}
+
+	stream stre_sub {
+		int stre_int;
+		string stre_string;
+		bit [3:0] stre_bit;
+		bool stre_bool;
+		month_e stre_enum;
+		str_sub stre_str;
+	}
+
+	state stat_sub {
+		int sta_int;
+		string sta_string;
+		bit [2:0] sta_bit;
+		bool sta_bool;
+		month_e sta_enum;
+		str_sub sta_str;
+	} 
+
+	resource res_sub {
+		int res_int;
+		string res_string;
+		bit [1:0] res_bit;
+		bool res_bool;
+		month_e res_enum;
+		str_sub res_str;
+	}
+
+	pool buff_sub buff;
+	bind buff*;
+	pool stre_sub stre;
+	bind stre*;
+	pool stat_sub stat;
+	bind stat*;
+	pool res_sub ress;
+	bind ress*;
+	
+	bit[2:0] status_flag;
+
+	action act_a1 {
+		output buff buff_o;
+		output stre stre_o;
+		
+		rand bit[3:0] ra_bit1_a1, ra_bit2_a1;
+		rand int ra_int_a1;
+		rand bool ra_bool_a1;
+		rand month_e ra_enum_a1;
+		rand str_sub ra_str_a1;
+	
+		exec pre_solve{
+			buff_o.buf_bit = 4;
+			buff_o.buf_bit = 3;
+			buff_o.buf_int = 10;
+			stre_o.stre_bool = true;
+			stre_o.stre_string = "ABC";
+			stre_o.stre_enum = JAN;
+			buff_o.buf_str.str_bit = buff_o.buf_bit;
+		}
+		
+		constraint {ra_bit1_a1 == buff_o.buf_bit; ra_int_a1 == buf_o.buf_int; ra_bool_a1 == stre_o.stre_bool;
+					ra_enum_a1 == stre_o.stre_enum; ra_bit2_a1 == buff_o.buf_str.str_bit;}
+					
+		exec post_solve{
+			if(ra_bit1_a1==4 && ra_int_a1==10 && ra_bool_a1==true && ra_enum_a1==JAN && ra_bit2_a1==5){
+				status_flag[0] = 1;
+			}
+			else{
+				status_flag[0] = 0;
+			}
+		}
+	}		
+}
+
+extend component sub_comp {
+
+	extend struct str_sub {
+		rand bit[2:0] str_bit_e1;
+		rand int str_int_e1;
+		rand bool str_bool_e1;
+		rand month_e str_enum_e1;
+	}
+    
+    
+			
+	action act_a2 {
+		output stat sta_o;
+		input stre stre_i;
+
+		rand bit[2:0] ra_bit_a2;
+		rand int ra_int_a2;
+		rand bool ra_bool_a2;
+		rand month_e ra_enum_a2;
+		rand str_sub str_a2;
+		
+		exec pre_solve{
+			sta_o.sta_bit = 3;
+			sta_o.sta_int = 14;
+			sta_o.sta_bool = false;
+			sta_o.sta_enum = FEB;
+			sta_o.sta_str.str_bit_e1 = sta_o.sta_bit;
+            
+		}
+		
+		constraint {ra_bit_a2 == sta_o.sta_bit; ra_int_a2 == sta_o.sta_int; ra_bool_a2 == sta_o.sta_bool;
+					 ra_enum_a2 == sta_o.sta_enum; str_a2.str_bit == sta_o.sta_str.str_bit_e1;}
+					
+		exec post_solve{
+			if(ra_bit_a2 == 3 && ra_int_a2 == 14 && ra_bool_a2 == false && ra_enum_a2 == FEB && str_a2.str_bit_e1 == 6){
+				status_flag[1] = 1;
+			}
+			else{
+				status_flag[1] = 0;
+			}
+		}
+	}
+}
+
+extend component sub_comp {
+
+	extend struct str_sub {
+		rand bit[1:0] str_bit_e2;
+		rand int str_int_e2;
+		rand bool str_bool_e2;
+		rand month_e str_enum_e2;
+	}
+	
+	action act_a3 {
+		input buf buf_i;
+		input stat sta_i;
+		share ress ress_s;
+
+		rand bit[1:0] ra_bit_a3;
+		rand int ra_int_a3;
+		rand bool ra_bool_a3;
+		rand month_e ra_enum_a3;
+		rand str_sub str_a3;
+		
+		exec pre_solve{
+			ress_s.res_bit = 9;
+			ress_s.res_int = 15;
+			ress_s.res_bool = true;
+			ress_s.res_enum = MAR;
+			ress_s.res_str.str_bit_e2 = ress_s.res_bit;
+		}
+		
+		constraint {ra_bit_a3 == ress_s.res_bit; ra_int_a3 == ress_s.res_int; ra_bool_a3 == ress_s.res_bool;
+					 ra_enum_a3 == ress_s.res_enum; str_a3.str_bit == ress_s.res_str.str_bit_e2;}
+					
+		exec post_solve{
+			if(ra_bit_a3 == 9 && ra_int_a3 == 15 && ra_bool_a3 == true && ra_enum_a3 == MAR && str_a3.str_bit == 1){
+				status_flag[2] = 1;
+			}
+			else{
+				status_flag[2] = 0;
+			}
+		}
+	}
+}
+
+component pss_top {
+	sub_comp sb_comp;
+
+	action self_check {
+		exec post_solve {
+			display("status_flag=%b",sb_comp.status_flag);
+			if(countbits(sb_comp.status_flag,1)==3)                                                                             
+				display("STATUS : Testcase Passes");
+			else
+				display("STATUS : Testcase Failed");
+		}
+	}
+
+	action root_a{              
+		sub_comp::act_a1 ac1;
+		sub_comp::act_a2 ac2;
+		sub_comp::act_a3 ac3;
+		self_check check_ac4;
+
+		activity{
+			parallel{
+				ac1;
+				ac2;
+			}
+			ac3;
+			check_ac4;
+		}
+	}
+}

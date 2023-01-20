@@ -1,0 +1,203 @@
+$date
+	Mon Mar 14 12:05:43 2022
+$end
+$version
+	Icarus Verilog
+$end
+$timescale
+	1s
+$end
+$scope module APB_protocol_verilog_tb $end
+$var wire 1 ! pwrite_o $end
+$var wire 32 " pwdata_o [31:0] $end
+$var wire 1 # psel_o $end
+$var wire 1 $ penable_o $end
+$var wire 32 % paddr_o [31:0] $end
+$var reg 2 & add_i [1:0] $end
+$var reg 1 ' pclk $end
+$var reg 32 ( prdata_i [31:0] $end
+$var reg 1 ) pready_i $end
+$var reg 1 * preset_n $end
+$scope module dut $end
+$var wire 2 + add_i [1:0] $end
+$var wire 32 , paddr_o [31:0] $end
+$var wire 1 ' pclk $end
+$var wire 32 - prdata_i [31:0] $end
+$var wire 1 ) pready_i $end
+$var wire 1 * preset_n $end
+$var wire 1 # psel_o $end
+$var wire 32 . pwdata_o [31:0] $end
+$var wire 1 ! pwrite_o $end
+$var wire 1 $ penable_o $end
+$var reg 2 / curr_q [1:0] $end
+$var reg 32 0 nxt_prdata [31:0] $end
+$var reg 1 1 nxt_pwrite $end
+$var reg 2 2 nxt_state [1:0] $end
+$var reg 32 3 prdata_q [31:0] $end
+$var reg 1 4 pwrite_q $end
+$upscope $end
+$upscope $end
+$enddefinitions $end
+#0
+$dumpvars
+04
+b0 3
+b0 2
+01
+b0 0
+b0 /
+b0 .
+bx -
+b0 ,
+b0 +
+0*
+x)
+bx (
+0'
+b0 &
+b0 %
+0$
+0#
+b0 "
+0!
+$end
+#5
+0)
+1'
+#10
+0'
+#15
+b11111111 (
+b11111111 -
+1*
+1'
+#20
+0'
+#25
+1'
+#30
+0'
+#35
+b1 2
+b1 &
+b1 +
+1'
+#40
+0'
+#45
+1#
+b1 /
+b10 2
+b0 &
+b0 +
+1'
+#50
+0'
+#55
+b1010000000000000 %
+b1010000000000000 ,
+b1 "
+b1 .
+1$
+b10 /
+1'
+#60
+0'
+#65
+b100000 0
+b0 2
+b100000 (
+b100000 -
+1)
+1'
+#70
+0'
+#75
+0#
+b0 %
+b0 ,
+b0 "
+b0 .
+0$
+b0 /
+b100000 3
+1'
+#80
+0'
+#85
+b11111111 (
+b11111111 -
+0)
+11
+b1 2
+b11 &
+b11 +
+1'
+#90
+0'
+#95
+1#
+b1 /
+1!
+14
+b10 2
+11
+b0 &
+b0 +
+1'
+#100
+0'
+#105
+b1010000000000000 %
+b1010000000000000 ,
+b100001 "
+b100001 .
+1$
+b10 /
+1'
+#110
+0'
+#115
+b0 2
+b100000 (
+b100000 -
+1)
+1'
+#120
+0'
+#125
+0#
+b0 %
+b0 ,
+b0 "
+b0 .
+0$
+b0 /
+1'
+#130
+0'
+#135
+b11111111 (
+b11111111 -
+0)
+1'
+#140
+0'
+#145
+1'
+#150
+0'
+#155
+1'
+#160
+0'
+#165
+1'
+#170
+0'
+#175
+1'
+#180
+0'
+#185
+1'
